@@ -17,13 +17,17 @@ struct MEMORY
             Data[i] = 0; // for every memory addres wtire 0
         }
     }
-}
+
+    Byte operator[] ( u32 Address) const {
+        return Data[Address];
+    }
+};
 
 struct CPU
 {
 
     World PC; // program counter
-    Byte SP; // stack pointer
+    World SP; // stack pointer
 
     Byte AREG, XREG, YREG; // registers
 
@@ -53,12 +57,15 @@ struct CPU
     }
 
     Byte FetchByte(u32 CYCLES, MEMORY& MEM){
-
+        Byte Data = MEM[PC];
+        PC++;
+        CYCLES--;
+        return Data;
     }
 
     void Execute ( u32 CYCLES ,MEMORY& MEM ){
         while( CYCLES > 0){
-            Byte Ins = FetchByte( CYCLES, MEM);
+            Byte INS = FetchByte( CYCLES, MEM);
         }
     }
     
